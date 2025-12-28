@@ -1,23 +1,35 @@
 # Portify
 
-A blazing fast, multi-threaded TCP SYN port scanner written in Rust. It uses Raw Sockets to bypass the OS stack for maximum performance (similar to nmap -sS).
+A high-performance TCP SYN scanner written in Rust.
 
 ## Features
-- Raw SYN Scan: Stealthy and fast.
-- Multi-threaded: Separate Sender/Receiver threads.
-- Interactive CLI: Progress bar and colored output.
+- **Raw SYN Scan**: Fast and stealthy using raw sockets.
+- **Asynchronous**: Multi-threaded sender/receiver tasks.
+- **Rate Limited**: Hard-coded at 3000 PPS for stability.
+- **Clean CLI**: Simple positional arguments.
 
-## Usage
-
-Requires sudo for raw socket access.
-
+## Installation
 ```bash
+git clone https://github.com/tnsqkyy/portify
+cd portify
 cargo build --release
-sudo ./target/release/portify
 ```
 
-## Disclaimer
-For educational purposes only. Do not scan unauthorized networks.
+## Usage
+Requires root privileges for raw socket access.
+
+```bash
+sudo ./target/release/portify <IP> [START] [END]
+```
+
+### Examples
+```bash
+# Default (Ports 1-1000)
+sudo ./target/release/portify 1.1.1.1
+
+# Custom range
+sudo ./target/release/portify 8.8.8.8 1 5000
+```
 
 ## License
 This project is licensed under the MIT License.
